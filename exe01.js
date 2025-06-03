@@ -1,19 +1,19 @@
 const prompt = require('prompt-sync')()
 
-function eBissexto(ano) {
-  return (ano % 4 === 0 && ano % 100 !== 0) || (ano % 400 === 0);
-}
-function validaFormatoData(data){
+ function verificaBisexto(ano) {
+   return (ano % 4 === 0 && ano % 100 !== 0) || (ano % 400 === 0);
+ }
+function ehDataValida(data){
          
 let arrayData = data.split("")
 
-  if(arrayData.length < 9){
+  if(arrayData.length > 10){
      
-    return console.log('DATA INVALIDA')
+    return false
 
   }else if( ! arrayData[2]  || arrayData[5] != '/'){
    
-    return console.log('DATA FORA DO PADRÃO')
+    return false
   }else{
 
     let dia = data.substring(0,2)
@@ -21,24 +21,27 @@ let arrayData = data.split("")
     let ano = data.substring(6,10)
 
     let calcDia = parseInt(dia)
-    let calcAno  = parseInt(ano)
+    let calcAno = parseInt(ano)
+    let calcMes = parseInt(mes)
 
-    if( calcDia >= 28 && calcDia <=31){
-      if(calcAno % 4 === 0 && calcAno % 100 !==0 || calcAno % 400 === 0) {
-
-      } 
-      }else{
-        return console.log('DATA INVALIDA')
-      }
-    
-    console.log(`${dia}/${mes}/${ano}`)
+    if( verificaBisexto(calcAno) && calcMes == 2){
+        if(calcDia <= 29){
+          return true
+        }else{
+          return false
+        }
+      
+    }else if(verificaBisexto(calcAno) && calcDia <= 31){
+      return true
+    }else{
+      return false
+    }
   }
-
 }
 let data = prompt(`INFORME A DATA NESSE FORMATO: ##/##/####  :`)
 
 
-eBissexto(data)
-//validaFormatoData(data)
+console.log(ehDataValida(data))
+
  
  
